@@ -109,7 +109,7 @@ class ConnectServer {
         fun postRequestBlackList(context:Context, title:String, phoneNum: String ,content:String, handler: JsonResponseHandler?) {
 
             val client = OkHttpClient()
-            val url = "${BASE_URL}/BlackList"
+            val url = "${BASE_URL}/black_list"
 
             val formData = FormBody.Builder()
                 .add("title", title)
