@@ -1,12 +1,17 @@
 package com.example.a20191222_01_loginandsignupapi
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import com.example.a20191222_01_loginandsignupapi.utils.ConnectServer
+import com.example.a20191222_01_loginandsignupapi.utils.ConnectServer.Companion.BASE_URL
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import okhttp3.*
 import org.json.JSONObject
+import java.io.IOException
 
 class SignUpActivity : BaseActivity() {
 
@@ -48,6 +53,33 @@ class SignUpActivity : BaseActivity() {
                 }
             })
         }
+
+        fun postRequestLogin(context: Context, id:String, pw:String ,handler: ConnectServer.JsonResponseHandler){
+            val client =OkHttpClient()
+            val url = "${BASE_URL}/auth"
+
+            val formData = FormBody.Builder()
+                .add("login_id", id)
+                .add("password",pw)
+                .build()
+
+            val request = Request.Builder()
+                .url(url)
+                .post(formData)
+                .build()
+
+            client.newCall(request).enqueue(object :Callback{
+                override fun onFailure(call: Call, e: IOException) {
+                    e.printStackTrace()
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                }
+
+            })
+        }
+
     }
 
     override fun setValues() {

@@ -24,6 +24,7 @@
         android:text="ID입력"/>
 
         <EditText
+            android:id="@+id/idEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -36,6 +37,7 @@
             android:text="비밀번호"/>
 
         <EditText
+            android:id="@+id/pwEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -55,6 +57,7 @@
                 android:text="회원가입"
                 />
             <Button
+                android:id="@+id/loginBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
