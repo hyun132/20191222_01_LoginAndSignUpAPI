@@ -8,7 +8,7 @@ import java.io.IOException
 class ConnectServer {
 
     interface JsonResponseHandler {
-        fun onResponse(josn: JSONObject)
+        fun onResponse(json: JSONObject)
     }
 
     companion object {
