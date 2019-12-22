@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.a20191222_01_loginandsignupapi.adapters.BlackListAdapter
 import com.example.a20191222_01_loginandsignupapi.datas.BlackListData
 import com.example.a20191222_01_loginandsignupapi.datas.User
 import com.example.a20191222_01_loginandsignupapi.utils.ConnectServer
@@ -13,6 +14,7 @@ import org.json.JSONObject
 class MainActivity : BaseActivity() {
 
     val blackList = ArrayList<BlackListData>()
+    var blackListDataAdapter:BlackListAdapter?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +35,9 @@ class MainActivity : BaseActivity() {
         userPhoneTxt.text=user.phoneNum
 
         getBlackListsFromServer()
+
+        blackListDataAdapter = BlackListAdapter(mContext,R.layout.black_list_item,blackList)
+        blackListView.adapter = blackListDataAdapter
     }
 
     fun getBlackListsFromServer(){
@@ -48,7 +53,7 @@ class MainActivity : BaseActivity() {
                     val black_lists = data.getJSONArray("black_lists")
 
 //                    블랙리스트 : 2개 => 0, 1
-                    for (i in 0..black_lists.length()-1)
+                    for (i in 0..black_lists.length()-1){
 
 //                        JSONArray 내부의 i번째 JSONObject를 추출
 //                        val tempJson = black_lists.getJSONObject(i)
@@ -57,7 +62,10 @@ class MainActivity : BaseActivity() {
 //                    blackList.add(tempData)
 
                         blackList.add(BlackListData.getBlackListDataFromJson(black_lists.getJSONObject(i)))
-
+                    }
+                    runOnUiThread {
+                        blackListDataAdapter?.notifyDataSetChanged()
+                    }
                 }else{
                     val message = json.getString("message")
                     runOnUiThread { Toast.makeText(mContext,message,Toast.LENGTH_SHORT).show() }
