@@ -34,6 +34,16 @@ class EditBlackListActivity : BaseActivity() {
             ConnectServer.postRequestBlackList(mContext,inputTitle,inputPhone,inputContext,object :ConnectServer.JsonResponseHandler{
                 override fun onResponse(json: JSONObject) {
                     Log.d("게시글 등록 응답", json.toString())
+
+                    val code = json.getInt("code")
+
+                    if (code == 200){
+                        runOnUiThread { Toast.makeText(mContext,"등록",Toast.LENGTH_SHORT).show() }
+                    }else{
+                        val message = json.getString("message")
+                        runOnUiThread { Toast.makeText(mContext,message,Toast.LENGTH_SHORT).show() }
+                    }
+
                 }
 
             })
