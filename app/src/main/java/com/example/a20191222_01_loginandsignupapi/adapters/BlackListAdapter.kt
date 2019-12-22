@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import com.example.a20191222_01_loginandsignupapi.R
 import com.example.a20191222_01_loginandsignupapi.datas.BlackListData
 
@@ -22,6 +23,15 @@ class BlackListAdapter(context: Context, resId:Int, list:ArrayList<BlackListData
 
         val row = tempRow!!
 
+        val data = mList.get(position)
+
+        val titleTxt = row.findViewById<TextView>(R.id.titleTxt)
+        val contentTxt = row.findViewById<TextView>(R.id.contentTxt)
+        val phoneNumTxt = row.findViewById<TextView>(R.id.phoneNumTxt)
+
+        titleTxt.text = data.title
+        phoneNumTxt.text="${data.phoneNum}"
+        contentTxt.text= data.content
 
 
         return row
