@@ -99,5 +99,40 @@ class ConnectServer {
 
         }
 
+        fun getRequestBlackList(context: Context, handler : JsonResponseHandler){
+            val client = OkHttpClient()
+
+//            GET 방식 호출은 파라미터를 query에 담는다. => 주소창에 같이 적어주는 방식
+//             url을 만들 때 에초에 파라미터도 같이 첨부해야함.
+
+//            URL빌더를 통해 가공된 URL을 실제 String 타입의 url로 변경
+
+
+            val urlBuilder = HttpUrl.parse("${BASE_URL}/black_list")!!.newBuilder()
+            urlBuilder.addEncodedQueryParameter("파라미터이름","필요변수")
+
+            val url = urlBuilder.build().toString()
+            //API가 헤더를 요구한다면 ,리퀘스트 생성시에 첨부.
+//           get방식은 제일 기본적인 리퀘스트. = > post/put등과 다르게 메쏘드를 지정하지 않는다. => 바로 build()로
+            val request = Request.Builder()
+                .url(url)
+                .header("X-Http-Token",ContextUtil.getUserToken(context))
+                .build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+//                    서버 요청에 실패하면 왜 실패했는지를 로그캣으로 찍자
+                    e.printStackTrace()
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+//                    서버 요청에 성공하면 응답 내용(=>String으로 받아서)을 JSON으로 가공
+                    val body = response.body()!!.string()
+                    val json = JSONObject(body)
+                    handler?.onResponse(json)
+                }
+            } )
+
+        }
     }
 }

@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="(폰번 나올 자리)"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="5dp"/>
 
     </LinearLayout>
 
