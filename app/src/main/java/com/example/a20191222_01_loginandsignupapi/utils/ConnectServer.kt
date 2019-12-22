@@ -98,6 +98,46 @@ class ConnectServer {
 
 
         }
+// 지금 사용하려는 API 메쏘드와 같은 메쏘드의 함수 하나를 복붙. 복붙하고 함수 이름 바꿔줌. 이 함수에 들어와야하는 변수들을 변경.
+//        화면(Activity)에서 넘겨줘야만 하는 변수만 남김. 이 함수가 가야할 URL설정
+//        POST /PUT 은 URL변수 직접 수정.  GET / DELETE  urlBuilder의 값을 수정
+//        파라미터를 설정 => 헤더는 별개로 설정.
+//        POST /PUT formData변수에서 add항목 변경
+//        GET / DELETE urlBuilder의 addEncodedParam항목 변경
+//        리퀘스트를 설정 => 어떤 메소드로? + 헤더를 첨부하냐마냐?
+//
+        fun postRequestBlackList(context:Context, title:String, phoneNum: String ,content:String, handler: JsonResponseHandler?) {
+
+            val client = OkHttpClient()
+            val url = "${BASE_URL}/BlackList"
+
+            val formData = FormBody.Builder()
+                .add("title", title)
+                .add("phone_num", phoneNum)
+                .add("content",content)
+                .build()
+
+            val request = Request.Builder()
+                .url(url)
+                .header("X-Http-Token", ContextUtil.getUserToken(context))
+                .post(formData)
+                .build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    e.printStackTrace()
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val body = response.body()!!.string()
+                    val json = JSONObject(body)
+                    handler?.onResponse(json)
+                }
+
+            })
+
+
+        }
 
         fun getRequestBlackList(context: Context, handler : JsonResponseHandler){
             val client = OkHttpClient()
