@@ -24,6 +24,13 @@
             android:text="(폰번 나올 자리)"
             android:layout_marginLeft="5dp"/>
 
+        <TextView
+            android:id="@+id/writerNameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- by : 사람이름"
+            android:layout_marginLeft="5dp"/>
+
     </LinearLayout>
 
     <TextView

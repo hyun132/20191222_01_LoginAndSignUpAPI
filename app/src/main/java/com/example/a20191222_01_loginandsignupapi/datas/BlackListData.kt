@@ -18,7 +18,7 @@ class BlackListData(phone:String, title:String ,content:String):Serializable {
             bld.phoneNum = json.getString("phone_num")
             bld.title = json.getString("title")
             bld.content = json.getString("content")
-            bld.writer= User.getUserDataFromJson(json.getJSONObject("witer"))
+            bld.writer= User.getUserDataFromJson(json.getJSONObject("writer"))
 
             return bld
         }
