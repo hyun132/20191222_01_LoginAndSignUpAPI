@@ -30,7 +30,13 @@ class EditBlackListActivity : BaseActivity() {
             val inputContext = contentEdt.text.toString()
 //
 //            var blackListData = BlackListData(phoneEdt.text.toString(),titleEdt.text.toString(),contentEdt.text.toString())
+//            실제로 서버에 게시글 등록 API 를 호출하는 코드
+            ConnectServer.postRequestBlackList(mContext,inputTitle,inputPhone,inputContext,object :ConnectServer.JsonResponseHandler{
+                override fun onResponse(json: JSONObject) {
+                    Log.d("게시글 등록 응답", json.toString())
+                }
 
+            })
 
         }
 
