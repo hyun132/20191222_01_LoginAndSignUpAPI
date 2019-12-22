@@ -32,8 +32,13 @@ class SignUpActivity : BaseActivity() {
                     val code = json.getInt("code")
                     Log.d("회원가입코드", "${code}")
 
-                    runOnUiThread {  if (code ==200){
-                        Toast.makeText(mContext,"회원가입 성공입니다.",Toast.LENGTH_SHORT).show()
+                    val message = json.getString("message")
+
+
+
+                    runOnUiThread {
+                        Toast.makeText(mContext,message,Toast.LENGTH_SHORT).show()
+                        if (code ==200){
                         finish()
                     }else{
                         Toast.makeText(mContext,"회원가입 실패입니다.",Toast.LENGTH_SHORT).show()
